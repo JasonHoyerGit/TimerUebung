@@ -19,45 +19,52 @@ namespace TimerUebung
 
         SolidBrush greenBrush = new SolidBrush(Color.LightGreen);
         SolidBrush blueBrush = new SolidBrush(Color.LightBlue);
-        Rectangle recNachRechts = new Rectangle();
-        Rectangle recNachLinks = new Rectangle();
+        Rectangle recSpieler = new Rectangle();
+        List<Hindernis> alleHindernisse = new List<Hindernis>();
+        int spawnZaehler = 0;
+        int spawRate = 30;
 
-        private void timerRechteck_Tick(object sender, EventArgs e)
+        private void timerGame_Tick(object sender, EventArgs e)
         {
-            recNachRechts.X+=5;
-            if (recNachRechts.Right >= ClientSize.Width)
+            if (spawnZaehler >= spawRate)
             {
-                timerNachRechts.Stop();
+                SpawnHindernis();
+            }
+            else
+            {
+                spawnZaehler++;
+            }
+            foreach (Hindernis hindernis in alleHindernisse)
+            {
+                hindernis.Move();
+                Refresh();
             }
         }
-        private void timerNachLinks_Tick(object sender, EventArgs e)
+
+        private void SpawnHindernis()
         {
-            recNachLinks.X -= 5;
-            Refresh();
-            if (recNachLinks.Left <= 0)
-            {
-                timerNachLinks.Stop();
-            }
+            alleHindernisse.Add(
+                new Hindernis(
+                    new Rectangle(ClientSize.Width, 0, ClientSize.Width / 10, ClientSize.Height)));
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            recNachRechts = new Rectangle(0,0,ClientSize.Width/10, ClientSize.Height);
+            recSpieler = new Rectangle(0, ClientSize.Height / 2, ClientSize.Width / 20, ClientSize.Width / 20);
 
-            recNachLinks = new Rectangle(ClientSize.Width, 0, ClientSize.Width / 10, ClientSize.Height);
-
-            timerNachRechts.Interval = 10;
-            timerNachLinks.Interval = 10;
-            timerNachRechts.Start();
-            timerNachLinks.Start();
+            timerGame.Interval = 10;
+            timerGame.Start();
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
             Graphics graphics = e.Graphics;
 
-            graphics.FillRectangle(greenBrush, recNachRechts);
-            graphics.FillRectangle(blueBrush, recNachLinks);
+            graphics.FillRectangle(greenBrush, recSpieler);
+            foreach (Hindernis hindernis in alleHindernisse)
+            {
+                graphics.FillRectangle(greenBrush, hindernis.recHindernis);
+            }
         }
     }
 }

@@ -30,17 +30,12 @@ namespace TimerUebung
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.timerNachRechts = new System.Windows.Forms.Timer(this.components);
-            this.timerNachLinks = new System.Windows.Forms.Timer(this.components);
+            this.timerGame = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
-            // timerNachRechts
+            // timerGame
             // 
-            this.timerNachRechts.Tick += new System.EventHandler(this.timerRechteck_Tick);
-            // 
-            // timerNachLinks
-            // 
-            this.timerNachLinks.Tick += new System.EventHandler(this.timerNachLinks_Tick);
+            this.timerGame.Tick += new System.EventHandler(this.timerGame_Tick);
             // 
             // Form1
             // 
@@ -56,9 +51,7 @@ namespace TimerUebung
         }
 
         #endregion
-
-        private System.Windows.Forms.Timer timerNachRechts;
-        private System.Windows.Forms.Timer timerNachLinks;
+        private System.Windows.Forms.Timer timerGame;
     }
 }
 
