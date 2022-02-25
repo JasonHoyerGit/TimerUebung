@@ -9,16 +9,26 @@ namespace TimerUebung
     {
         public Hindernis(Rectangle rectangle, int movingSpeed = 5)
         {
-            recHindernis = rectangle;
+            Random rnd = new Random();
+
+            int positionluecke = rnd.Next(50, rectangle.Height - 50);
+            recOben = rectangle;
+            recUnten = rectangle;
+
+            recOben.Height = positionluecke;
+            recUnten.Y = positionluecke + 150;
+
             this.movingSpeed = movingSpeed;
         }
 
-        public Rectangle recHindernis;
+        public Rectangle recOben;
+        public Rectangle recUnten;
         public int movingSpeed;
 
         public void Move()
         {
-            recHindernis.X -= movingSpeed;
+            recOben.X -= movingSpeed;
+            recUnten.X -= movingSpeed;
         }
     }
 }
